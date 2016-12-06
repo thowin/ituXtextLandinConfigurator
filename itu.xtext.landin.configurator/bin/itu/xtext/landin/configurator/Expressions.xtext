@@ -1,0 +1,47 @@
+grammar itu.xtext.landin.configurator.Expressions with org.eclipse.xtext.common.Terminals
+
+generate expressions "http://www.xtext.itu/landin/configurator/Expressions"
+
+Model:
+	configurator+=Configurator;
+	
+Configurator:
+	title=Title (expression+=Expression)+
+;
+
+Title:
+	FreeText
+;
+
+Expression:
+     left=AtomicExpression (operation+=Operation right+=Expression)* | paranthesis=ParenthesisExpression
+;
+
+ParenthesisExpression returns Expression:
+	'(' Expression ')'
+;
+
+AtomicExpression returns Expression :
+	name=ID (Sep ID)*
+;
+
+FreeText:
+	name=ID (WS ID)*
+;
+
+Sep:
+	',' | ',' WS
+;
+
+Operation:
+	Binop | Unop
+;
+
+
+Binop:
+	'and' | 'or' | 'equals' | 'requires' | 'is' | 'are' | 'excludes'
+;
+
+Unop:
+	'not'
+;

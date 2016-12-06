@@ -1,0 +1,9 @@
+grammar itu.xtext.landin.configurator.Expressions with org.eclipse.xtext.common.Terminals
+
+generate expressions "http://www.xtext.itu/landin/configurator/Expressions"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
